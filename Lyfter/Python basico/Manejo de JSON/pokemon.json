@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Charmander",
+        "type": "Fire",
+        "level": 18,
+        "stats": {
+            "attack": 52,
+            "defense": 43,
+            "speed": 65
+        }
+    },
+    {
+        "name": "Jigglypuff",
+        "type": "Fairy",
+        "level": 15,
+        "stats": {
+            "attack": 45,
+            "defense": 20,
+            "speed": 20
+        }
+    },
+    [
+        "sjdj",
+        "sadj",
+        "4"
+    ]
+]
