@@ -18,8 +18,8 @@ hotel_information = {
 print(hotel_information)
 
 #2. Cree un programa que cree un diccionario usando dos listas del mismo tamaño, usando una para sus keys, y la otra para sus values.
-keys = ['first_name', 'last_name', 'role']
-values = ['Irina', 'Araya', 'Student']
+keys = ['first_name', 'last_name', 'role', 'email']
+values = ['Irina', 'Araya', 'Student', 'irina.araya@example.com']
 
 user = {}
 
@@ -34,7 +34,8 @@ data = {
     "name": "Irina",
     "age": 17,
     "city": "Cartago",
-    "course": "Programming"
+    "course": "Programming",
+    "email": "irina.araya@example.com"
 }
 
 keys_to_remove = ["course"]
