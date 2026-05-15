@@ -1,5 +1,4 @@
 students = []
-
 def ask_notes(subject):
     while True:
         try:
@@ -11,15 +10,23 @@ def ask_notes(subject):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-def add_student():
+def add_student(students):
     name = input("Enter the student's name: ")
+    if name == "":
+        print("Name cannot be empty. Please try again.")
+        return
+    if not name.replace(" ", "").isalpha():
+        print("Name must contain only letters and spaces. Please try again.")
+        return
     section = input("Enter the student's section: ")
+    if section == "":
+        print("Section cannot be empty. Please try again.")
+        return
     spanish_note = ask_notes("Spanish")
     english_note = ask_notes("English")
     social_studies = ask_notes("Social Studies")
     science_note = ask_notes("Science")
 
-    section = input("Enter the student's section: ")
     student = {
         "name": name,
         "section": section,
@@ -28,10 +35,15 @@ def add_student():
         "social_studies": social_studies,
         "science": science_note
     }
+    
+    for student in students:
+        if student['name'].lower() == name.lower():
+            print("A student with this name already exists. Please try again.")
+            return
     students.append(student)
     print(f"Student {name} added successfully.")
 
-def view_students():
+def view_students(students):
     if len(students) == 0:
         print("No students to display.")
         return
@@ -46,7 +58,7 @@ def view_students():
         print(f"Science: {student['science']}")
         print("-------------------------")
 
-def general_average():
+def general_average(students):
     if len(students) == 0:
         print("No students to calculate average.")
         return
@@ -59,7 +71,7 @@ def general_average():
     general_avg = total_average / len(students)
     print(f"The general average of all students is: {general_avg:.2f}")
 
-def top_3():
+def top_3(students):
     if len(students) == 0:
         print("No students to determine top 3.")
         return

@@ -1,14 +1,5 @@
-from actions import (
-    ask_notes,
-    add_student,
-    view_students,
-    top_3,
-    general_average,
-)
-
 import data
-
-def show_menu():
+def show_menu(students):
     while True:
         print("\nMenu:")
         print("1. Ask for student notes")
@@ -26,19 +17,28 @@ def show_menu():
             subject = input("Enter the subject: ")
             ask_notes(subject)
         elif choice == '2':
-            add_student()
+            add_student(students)
         elif choice == '3':
-            view_students()
+            view_students(students)
         elif choice == '4':
-            top_3()
+            top_3(students)
         elif choice == '5':
-            general_average()
+            general_average(students)
         elif choice == '6':
-            data.export_csv()
+            data.export_students(students)
         elif choice == '7':
-            data.import_csv()
+            data.import_students(students)
         elif choice == '8':
             print("Exiting the program...")
             break
         else:
             print("Invalid option, please try again.")
+
+from actions import (
+    ask_notes,
+    add_student,
+    view_students,
+    top_3,
+    general_average,
+)
+
