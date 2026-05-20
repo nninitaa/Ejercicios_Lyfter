@@ -1,4 +1,5 @@
 import csv
+from actions import Student
 
 def export_students(students):
     with open('students.csv', mode='w', newline='') as archive:
@@ -8,7 +9,7 @@ def export_students(students):
             'Section', 
             'Spanish', 
             'English', 
-            'Social Studies',
+            'Social',
             'Science'
             ])
         
@@ -18,27 +19,25 @@ def export_students(students):
                 student.section,
                 student.spanish,
                 student.english,
-                student.social_studies,
+                student.social,
                 student.science
             ])
     print("Students exported to students.csv successfully.")
 
-students = []
-try:
-    with open('students.csv', mode='r') as archive:
-        reader = csv.DictReader(archive)    
-        for row in reader:
-            student = {
-                'name': row['Name'],
-                'section': row['Section'],
-                'spanish': float(row['Spanish']),
-                'english': float(row['English']),
-                'social_studies': float(row['Social Studies']),
-                'science': float(row['Science'])
-            }
-
-            students.append(student)
-    print("Students imported from students.csv successfully.")
-except FileNotFoundError:
-    print("No existing students.csv file found. Starting with an empty student list.")
-
+def import_students(students):
+    try:
+        with open('students.csv', mode='r') as archive:
+            reader = csv.DictReader(archive)
+            for row in reader:
+                student_object = Student(
+                    name=row['Name'],
+                    section=row['Section'],
+                    spanish=int(row['Spanish']),
+                    english=int(row['English']),
+                    social=int(row['Social']),
+                    science=int(row['Science'])
+                )
+                students.append(student_object)
+        print("Students imported from students.csv successfully.")
+    except FileNotFoundError:
+        print("No students.csv file found. Please export students first.")

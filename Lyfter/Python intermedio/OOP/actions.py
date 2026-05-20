@@ -1,71 +1,80 @@
 class Student:
-    def __init__(self):
-        self.students = []
-    def ask_notes(self, subject):
+    def __init__(self, name, section, spanish, english, social, science):
+        self.name = name
+        self.section = section
+        self.spanish = spanish
+        self.english = english
+        self.social = social
+        self.science = science
+        
+    def average(self):
+        total = sum([self.spanish, self.english, self.social, self.science])
+        return total / 4
+
+def ask_notes(subject):
         while True:
             try:
-                notes = input(f"Please enter the notes for {subject} (0-100): ")
-                if 0 <= int(notes) <= 100:
-                    return f"The notes for {subject} are {notes}."
+                notes = int(input(f"Enter the notes for {subject} (0-100): "))
+                if 0 <= notes <= 100:
+                    return notes
+                print("Please enter a valid number between 0 and 100.")
             except ValueError:
-                print("Invalid input. Please enter a valid number.")
-                print("Invalid input. Please enter a number between 0 and 100.")
+                print("Invalid input. Please enter a number.")
                 
-    def add_student(self, name):
-        name = input("Please enter the student's name: ")
-        if name.strip() == "":
-            return "Name cannot be empty. Please enter a valid name."
-        if not name.isalpha():
-            return "Name must contain only letters. Please enter a valid name." 
-        section = input("Please enter the student's section: ")
-        if section.strip() == "":
-            return "Section cannot be empty. Please enter a valid section."
-        spanish_notes = self.ask_notes("Spanish")
-        english_notes = self.ask_notes("English")
-        social_notes = self.ask_notes("Social")
-        science_notes = self.ask_notes("Science")
+def add_student(student_list):
+        name = input("Enter the student's name: ").strip()
+        if not name:
+            print("Name cannot be empty.")
+            return
+        if not name.replace(" ", "").isalpha():
+            print("Name must contain only letters and spaces.")
+            return
+        section = input("Enter the student's section: ").strip()
+        if not section:
+            print("Section cannot be empty.")
+            return
         
-        student_info = {
-            "name": name,
-            "section": section,
-            "spanish": spanish_notes,
-            "english": english_notes,
-            "social": social_notes,
-            "science": science_notes
-        }
-        self.students.append(student_info)
-        return f"Student added successfully: {name}"
-    
-    def view_students(self, students_list):
-        if not self.students:
-            return "No students to display."
-        for student in self.students:
+        spanish = ask_notes("Spanish")
+        english = ask_notes("English")
+        social = ask_notes("Social")
+        science = ask_notes("Science")
+
+        new_student = Student(name, section, spanish, english, social, science)
+        student_list.append(new_student)
+        print(f"\nStudent {name} added successfully.")
+        
+def view_students(student_list):
+        if not student_list:
+            print("No students to display.")
+            return
+        
+        for student in student_list:
             print("-------------------------------")
-            print(f"Name: {student['name']}")
-            print(f"Section: {student['section']}")
-            print(f"Spanish Notes: {student['spanish']}")
-            print(f"English Notes: {student['english']}")
-            print(f"Social Notes: {student['social']}")
-            print(f"Science Notes: {student['science']}")
+            print(f"Name: {student.name}")
+            print(f"Section: {student.section}")
+            print(f"Spanish: {student.spanish}")
+            print(f"English: {student.english}")
+            print(f"Social: {student.social}")
+            print(f"Science: {student.science}")
+            print(f"Average: {student.average():.2f}")
             print("-------------------------------")
             
-        def calculate_average(self, student):
-            total_notes = int(student['spanish']) + int(student['english']) + int(student['social']) + int(student['science'])
-            average = total_notes / 4
-            return f"The average notes for {student['name']} is {average:.2f}."
-        if len(self.students) == 0:
-            return "No students to calculate average."  
-        def top_3_students(self):
-            if len(self.students) == 0:
-                return "No students to calculate top 3."
-            sorted_students = sorted(self.students, key=lambda x: (int(x['spanish']) + int(x['english']) + int(x['social']) + int(x['science'])) / 4, reverse=True)
-            print("Top 3 students based on average notes:")
-            for i, student in enumerate(sorted_students[:3]):
-                average = (int(student['spanish']) + int(student['english']) + int(student['social']) + int(student['science'])) / 4
-                print(f"{i + 1}. {student['name']} - Average Notes: {average:.2f}")
-                
-student_manager = Student()
-student_manager.ask_notes()
-student_manager.add_student()
-student_manager.view_students()
-student_manager.top_3_students()
+def top_3_students(student_list):
+        if not student_list:
+            print("No students to evaluate.")
+            return
+        
+        sorted_students = sorted(student_list, key=lambda s: s.average(), reverse=True)
+        top_students = sorted_students[:3]
+        
+        print("\nTop 3 Students:")
+        for student in top_students:
+            print(f"{student.name} - Average: {student.average():.2f}")
+            
+def general_average(student_list):
+        if not student_list:
+            print("No students to evaluate.")
+            return
+        
+        total_average = sum(student.average() for student in student_list) / len(student_list)
+        print(f"\nGeneral Average: {total_average:.2f}")

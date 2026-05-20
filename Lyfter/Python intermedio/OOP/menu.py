@@ -1,4 +1,12 @@
 import data
+from actions import (
+    ask_notes,
+    add_student,
+    view_students,
+    top_3_students,
+    general_average,
+)
+
 def show_menu(students):
     while True:
         print("\nMenu:")
@@ -21,7 +29,7 @@ def show_menu(students):
         elif choice == '3':
             view_students(students)
         elif choice == '4':
-            top_3(students)
+            top_3_students(students)
         elif choice == '5':
             general_average(students)
         elif choice == '6':
@@ -34,11 +42,4 @@ def show_menu(students):
         else:
             print("Invalid option, please try again.")
 
-from actions import (
-    ask_notes,
-    add_student,
-    view_students,
-    top_3,
-    general_average,
-)
 

@@ -85,4 +85,4 @@ class Human:
 human = Human("Nina")
 print(human.name)
 print(human.head.eyes)
-print(human.torso.heart)
+print(human.left_arm.hand.side)
