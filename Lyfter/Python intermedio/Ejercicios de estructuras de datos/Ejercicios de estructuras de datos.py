@@ -34,18 +34,21 @@ class Stack:
     def get_size(self):
         return self.size
     
-if __name__ == "__main__":
-    stack = Stack()
-    stack.push(10)
-    stack.push(20)
-    stack.push(30)
-    
-    print("Top element:", stack.peek())  
-    print("Stack size:", stack.get_size())  
-    print("Popped element:", stack.pop())  
-    print("Top element after pop:", stack.peek())  
-    print("Stack size after pop:", stack.get_size())
-    
+    def print_stack(self):
+        current = self.top
+        while current:
+            print(current.value, end=' ')
+            current = current.next
+        print()
+        
+if __name__ == "__main__":    
+    stack = Stack()    
+stack.push(5)
+stack.push(7)
+stack.push(8)
+        
+stack.print_stack()
+
 #Ejercicio 2
 class Node:
     def __init__(self, value):
@@ -104,40 +107,73 @@ class Deque:
         self.count -= 1
         return popped_value
     
+    def print_deque(self):
+        current = self.front
+        while current:
+            print(current.value, end=' ')
+            current = current.next
+        print()
+    
 if __name__ == "__main__":
     deque = Deque()
-    deque.push_left(10)
-    deque.push_right(20)
+    deque.push_left(17)
+    deque.push_right(24)
     deque.push_left(5)
-    
-    print("Popped from left:", deque.pop_left())  
-    print("Popped from right:", deque.pop_right())  
-    print("Popped from left again:", deque.pop_left())
+    deque.print_deque()
     
 #Ejercicio 3
 class Node:
     def __init__(self, value):
+        self.value = value
         self.left = None
         self.right = None
-        self.val = value
         
-def print_in_order(node):
-        if node is not None:
-            print_in_order(node.left)
-            print(node.val, end=' ')
-            print_in_order(node.right)
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+        
+    def insert(self, value):
+        if self.root is None:
+            self.root = Node(value)
+        else:
+            self._insert_recursive(self.root, value)
+    
+    def _insert_recursive(self, node, value):
+        if node is None:
+            return Node(value)
+        if value < node.value:
+            node.left = self._insert_recursive(node.left, value)
+        else:
+            node.right = self._insert_recursive(node.right, value)
+        return node
+
+    def _print_recursive(self, node):
+        if node:
+            self._print_recursive(node.left)
+            print(node.value)
+            self._print_recursive(node.right)
+    
+    def inorder_traversal(self):
+        return self._inorder_recursive(self.root)
+    
+    def _inorder_recursive(self, node):
+        result = []
+        if node:
+            result.extend(self._inorder_recursive(node.left))
+            result.append(node.value)
+            result.extend(self._inorder_recursive(node.right))
+        return result 
+    
+    def print_tree(self):
+        self._print_recursive(self.root)
 
 if __name__ == "__main__":
-        root = Node(4)
-        left_child = Node(8)
-        right_child = Node(23)
-        
-        root.left = left_child
-        root.right = right_child
-        
-        root.left.left = Node(6)
-        root.left.right = Node(3)
-        
-        print("In-order traversal of the binary tree:")
-        print_in_order(root)
-        print()          
+    tree = BinaryTree()
+    tree.insert(14)
+    tree.insert(7)
+    tree.insert(23)
+    tree.insert(6)
+    tree.insert(34)
+    
+    tree.print_tree()
+
