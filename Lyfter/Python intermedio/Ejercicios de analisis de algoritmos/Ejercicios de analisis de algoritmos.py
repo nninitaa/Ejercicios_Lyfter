@@ -33,8 +33,7 @@ def check_if_lists_have_an_equal(list_a, list_b):
 
 def print_10_or_less_elements(list_to_print): 
 	list_len = len(list_to_print) #O(n) Lee la lista para obtener su longitud
-	for index in range(min(list_len, 10)): #O(1) Se limita a imprimir solo los primeros 10 elementos, por lo que el ciclo se ejecuta 10 veces  
-		print(list_to_print[index])#O(1) Imprime el elemento en la posición indice de la lista
+ 		print(list_to_print[index])#O(1) Imprime el elemento en la posición indice de la lista
 
 def generate_list_trios(list_a, list_b, list_c): 
 	result_list = [] #O(1) Se crea una lista vacia para almacenar los resultados
