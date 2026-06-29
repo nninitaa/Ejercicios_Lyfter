@@ -1,0 +1,12 @@
+{
+    "categories": [
+        "hola"
+    ],
+    "logic": [
+        {
+            "type": "Expense",
+            "category": "hola",
+            "amount": 67.0
+        }
+    ]
+}
