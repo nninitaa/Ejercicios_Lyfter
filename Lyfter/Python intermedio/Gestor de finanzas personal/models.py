@@ -3,7 +3,8 @@ class Category:
         self.name = name.strip()
 
 class Transaction:
-    def __init__(self, type: str, category: str, amount: float):
-        self.type = type
+    def __init__(self, transaction_type: str, category: str, amount: float, title: str):
+        self.type = transaction_type  
         self.category = category
-        self.amount = float(amount)
+        self.amount = amount
+        self.title = title

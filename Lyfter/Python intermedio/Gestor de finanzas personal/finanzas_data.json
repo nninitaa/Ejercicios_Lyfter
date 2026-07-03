@@ -1,12 +1,26 @@
 {
     "categories": [
-        "hola"
+        "adad",
+        "fefcd"
     ],
-    "logic": [
+    "transactions": [
         {
+            "title": "efawfe",
             "type": "Expense",
-            "category": "hola",
-            "amount": 67.0
+            "category": "adad",
+            "amount": 123.0
+        },
+        {
+            "title": "regreg",
+            "type": "Income",
+            "category": "fefcd",
+            "amount": 34.0
+        },
+        {
+            "title": "adffef",
+            "type": "Expense",
+            "category": "fefcd",
+            "amount": 34.0
         }
     ]
 }
