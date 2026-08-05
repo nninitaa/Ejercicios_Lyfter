@@ -1,0 +1,26 @@
+{
+    "categories": [
+        "adad",
+        "fefcd"
+    ],
+    "transactions": [
+        {
+            "title": "efawfe",
+            "type": "Expense",
+            "category": "adad",
+            "amount": 123.0
+        },
+        {
+            "title": "regreg",
+            "type": "Income",
+            "category": "fefcd",
+            "amount": 34.0
+        },
+        {
+            "title": "adffef",
+            "type": "Expense",
+            "category": "fefcd",
+            "amount": 34.0
+        }
+    ]
+}
