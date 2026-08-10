@@ -88,7 +88,7 @@ PUT
 
 #### [Obtener publicacion]
 - **Método HTTP:** GET
-- **Endpoint:** https://www.postman.com/nina-araya-rojas-373186/workspace/irina-lyfter/request/57105817-64131ff2-a698-4659-9ad5-be83cd62c884?action=share&creator=57105817
+- **Endpoint:** https://jsonplaceholder.typicode.com/posts/1
 - **Parámetros:** ID 1
 - **Body:** 
 {
@@ -100,7 +100,7 @@ PUT
 - **Descripción de la respuesta:** El contenido que esta escrito en el titulo y en el body es un texto de prueba que devuelve la API para simular la informacion.
 
 - **Método HTTP:** POST
-- **Endpoint:** https://www.postman.com/nina-araya-rojas-373186/workspace/irina-lyfter/request/57105817-01b1372b-a750-47ed-9bdc-de3e6f1c1680?action=share&creator=57105817
+- **Endpoint:** https://jsonplaceholder.typicode.com/posts
 - **Parámetros:** No tiene
 - **Body:** 
 {
@@ -112,7 +112,7 @@ PUT
 - **Descripción de la respuesta:** El body tiene la informacion que se envia al servidor para crear una nueva publicacion
 
 - **Método HTTP:** PUT
-- **Endpoint:** https://www.postman.com/nina-araya-rojas-373186/workspace/irina-lyfter/request/57105817-01b1372b-a750-47ed-9bdc-de3e6f1c1680?action=share&creator=57105817
+- **Endpoint:** https://jsonplaceholder.typicode.com/posts/1
 - **Parámetros:** ID 1
 - **Body:** 
 {
