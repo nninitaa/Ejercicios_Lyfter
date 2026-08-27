@@ -9,10 +9,20 @@ CREATE TABLE invoices (
 ALTER TABLE invoices ADD phone_number VARCHAR(20);
 ALTER TABLE invoices ADD employee_code VARCHAR(50);
 
-INSERT INTO invoices (invoice_number, buyer_email, total_amount, phone_number, employee_code) VALUES
-('INV001', 'customer1@example.com', 434000, '1234567890', 'EMP001'),
-('INV002', 'customer2@example.com', 870000, '0987654321', 'EMP002'),
-('INV003', 'customer3@example.com', 115000, '1122334455', 'EMP003');
+INSERT INTO invoices (invoice_number, buyer_email, total_amount, phone_number, employee_code, purchase_date) VALUES
+('INV001', 'customer1@example.com', 434000, '1234567890', 'EMP001', '2023-01-01'),
+('INV002', 'customer2@example.com', 870000, '0987654321', 'EMP002', '2023-01-02'),
+('INV003', 'customer3@example.com', 115000, '1122334455', 'EMP003', '2023-01-03');
+
+CREATE TABLE products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    entry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    brand VARCHAR(100),
+    stock_available INTEGER DEFAULT 0,
+    code BIGINT UNIQUE
+);
 
 CREATE TABLE products_per_invoice (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,17 +40,6 @@ INSERT INTO products_per_invoice (invoice_id, product_id, quantity, unit_price) 
 (2, 3, 3, 190000),
 (2, 4, 1, 290000),
 (3, 5, 5, 23000);
-
-
-CREATE TABLE products (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    entry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    brand VARCHAR(100),
-    stock_available INTEGER DEFAULT 0,
-    code BIGINT UNIQUE
-);
 
 CREATE TABLE shopping_carts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -70,16 +69,16 @@ SELECT * FROM products;
 
 SELECT * FROM products WHERE price > 50000;
 
-SELECT * FROM products WHERE id = 3;
+SELECT * FROM products_per_invoice WHERE product_id = 3;
 
 SELECT
-    id,
+    product_id,
     SUM(quantity) AS total_quantity,
     SUM(quantity * unit_price) AS total_price
 FROM products_per_invoice
-GROUP BY id;
+GROUP BY product_id;
 
-SELECT * FROM invoices ORDER BY buyer_email ASC;
+SELECT * FROM invoices ORDER BY buyer_email = 'customer1@example.com';
 
 SELECT * FROM invoices ORDER BY total_amount DESC;
 
