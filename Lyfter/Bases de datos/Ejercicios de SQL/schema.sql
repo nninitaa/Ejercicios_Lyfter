@@ -10,9 +10,9 @@ ALTER TABLE invoices ADD phone_number VARCHAR(20);
 ALTER TABLE invoices ADD employee_code VARCHAR(50);
 
 INSERT INTO invoices (invoice_number, buyer_email, total_amount, phone_number, employee_code, purchase_date) VALUES
-('INV001', 'customer1@example.com', 434000, '1234567890', 'EMP001', '2023-01-01'),
-('INV002', 'customer2@example.com', 870000, '0987654321', 'EMP002', '2023-01-02'),
-('INV003', 'customer3@example.com', 115000, '1122334455', 'EMP003', '2023-01-03');
+('INV001', 'customer1@example.com', 434000, '1234567890', 'EMP001', '2026-01-01'),
+('INV002', 'customer2@example.com', 870000, '0987654321', 'EMP002', '2026-01-02'),
+('INV003', 'customer3@example.com', 115000, '1122334455', 'EMP003', '2026-01-03');
 
 CREATE TABLE products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
