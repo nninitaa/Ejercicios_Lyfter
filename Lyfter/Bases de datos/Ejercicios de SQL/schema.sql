@@ -29,7 +29,7 @@ INSERT INTO products (name, price, brand, stock_available, code) VALUES
 ('Smartphone', 134000, 'BrandB', 20, 1002),
 ('Headphones', 190000, 'BrandC', 15, 1003),
 ('Monitor', 290000, 'BrandD', 5, 1004),
-('Keyboard', 23000, 'BrandE', 25, 1005);
+('Keyboard', 25000, 'BrandE', 25, 1005);
 
 CREATE TABLE products_per_invoice (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,7 +46,7 @@ INSERT INTO products_per_invoice (invoice_id, product_id, quantity, unit_price) 
 (1, 2, 1, 134000),
 (2, 3, 3, 190000),
 (2, 4, 1, 290000),
-(3, 5, 5, 23000);
+(3, 5, 5, 25000);
 
 CREATE TABLE shopping_carts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
