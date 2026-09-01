@@ -24,6 +24,13 @@ CREATE TABLE products (
     code BIGINT UNIQUE
 );
 
+INSERT INTO products (name, price, brand, stock_available, code) VALUES
+('Laptop', 150000, 'BrandA', 10, 1001),
+('Smartphone', 134000, 'BrandB', 20, 1002),
+('Headphones', 190000, 'BrandC', 15, 1003),
+('Monitor', 290000, 'BrandD', 5, 1004),
+('Keyboard', 23000, 'BrandE', 25, 1005);
+
 CREATE TABLE products_per_invoice (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     invoice_id INTEGER NOT NULL,
@@ -58,12 +65,6 @@ CREATE TABLE cart_items (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-INSERT INTO products (name, price, brand, stock_available, code) VALUES
-('Laptop', 150000, 'BrandA', 10, 1001),
-('Smartphone', 134000, 'BrandB', 20, 1002),
-('Headphones', 190000, 'BrandC', 15, 1003),
-('Monitor', 290000, 'BrandD', 5, 1004),
-('Keyboard', 23000, 'BrandE', 25, 1005);
 
 SELECT * FROM products;
 
@@ -78,7 +79,10 @@ SELECT
 FROM products_per_invoice
 GROUP BY product_id;
 
-SELECT * FROM invoices ORDER BY buyer_email = 'customer1@example.com';
+SELECT * 
+FROM invoices
+WHERE buyer_email = 'customer1@example.com'
+ORDER BY id ASC;
 
 SELECT * FROM invoices ORDER BY total_amount DESC;
 
