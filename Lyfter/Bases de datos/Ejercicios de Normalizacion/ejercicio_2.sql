@@ -1,48 +1,69 @@
-CREATE TABLE Car (
-    VIN INT PRIMARY KEY,
+CREATE TABLE InsuranceCompany (
+    CompanyID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name VARCHAR(50),
+);
+
+CREATE TABLE VehicleModel (
+    ModelID INTEGER PRIMARY KEY AUTOINCREMENT,
     Make VARCHAR(50),
     Model VARCHAR(50),
     Year INT,
-    Color VARCHAR(20)
+    UNIQUE (Make, Model, Year)
+);
+
+CREATE TABLE Vehicle (
+    VIN INT PRIMARY KEY,
+    ModelID INT,
+    Color VARCHAR(20),
+    FOREIGN KEY (ModelID) REFERENCES VehicleModel(ModelID)
 );
 
 CREATE TABLE Owner (
     OwnerID INT PRIMARY KEY,
     Name VARCHAR(50),
-    PhoneNumber VARCHAR(15),
-    VIN INT,
-    FOREIGN KEY (VIN) REFERENCES Car(VIN)
+    PhoneNumber VARCHAR(15)
 );
 
 CREATE TABLE Owner_Car (
     OwnerCarID INTEGER PRIMARY KEY AUTOINCREMENT, 
     OwnerID INT,
     VIN INT,
-    InsuranceCompany VARCHAR(50),
+    InsuranceCompanyID INT,
     InsurancePolicy VARCHAR(50),
     FOREIGN KEY (OwnerID) REFERENCES Owner(OwnerID),
-    FOREIGN KEY (VIN) REFERENCES Car(VIN)
+    FOREIGN KEY (VIN) REFERENCES Vehicle(VIN),
+    FOREIGN KEY (InsuranceCompanyID) REFERENCES InsuranceCompany(CompanyID)
 );
 
-INSERT INTO Car (VIN, Make, Model, Year, Color) VALUES
-    (1, 'Honda', 'Accord', 2003, 'Silver'),
-    (2, 'Honda', 'Accord', 2003, 'Silver'),
-    (3, 'Honda', 'CR-V', 2014, 'Blue'),
-    (4, 'Chevrolet', 'Volt', 2015, 'Red');
+INSERT INTO InsuranceCompany (CompanyID, Name) VALUES
+    (1, 'ABC Insurance'),
+    (2, 'XYZ Insurance'),
+    (3, 'DEF Insurance'),
+    (4, 'GHI Insurance');
 
-INSERT INTO Owner (OwnerID, Name, PhoneNumber, VIN) VALUES
-    (1, 'Alice', '123-456-7890', 1),
-    (2, 'Bob', '987-654-3210', 2),
-    (3, 'Claire', '555-123-4567', 3),
-    (4, 'Dave', '111-222-3333', 2);
+INSERT INTO VehicleModel (ModelID, Make, Model, Year) VALUES
+    (1, 'Honda', 'Accord', 2003),
+    (2, 'Honda', 'CR-V', 2014),
+    (3, 'Chevrolet', 'Volt', 2015);
 
-INSERT INTO Owner_Car (OwnerID, VIN, InsuranceCompany, InsurancePolicy) VALUES
-    (1, 1, 'ABC Insurance', 'Fire & Theft'),
-    (2, 2, 'XYZ Insurance', 'Full Cover'),
-    (3, 3, 'DEF Insurance', 'Collision'),
-    (4, 2, 'GHI Insurance', 'Basic Legal');
+INSERT INTO Vehicle (VIN, ModelID, Color) VALUES
+    (1, 1, 'Blue'),
+    (2, 2, 'Red'),
+    (3, 3, 'White');
 
-SELECT * FROM Car;
+INSERT INTO Owner (OwnerID, Name, PhoneNumber) VALUES
+    (1, 'Alice', '123-456-7890'),
+    (2, 'Bob', '987-654-3210'),
+    (3, 'Claire', '555-123-4567'),
+    (4, 'Dave', '111-222-3333');
+
+INSERT INTO Owner_Car (OwnerID, VIN, InsuranceCompanyID, InsurancePolicy) VALUES
+    (1, 1, 1, 'Fire & Theft'),
+    (2, 2, 2, 'Full Cover'),
+    (3, 3, 3, 'Collision'),
+    (4, 1, 4, 'Basic Legal');
+
+SELECT * FROM Vehicle;
 SELECT * FROM Owner;
 SELECT * FROM Owner_Car;
   

@@ -29,36 +29,35 @@ Esta tabla ya cumple con la regla de 1FN, y no es necesario realizar modificacio
 
 ## 3. Aplicacion de 2FN
 
-- Car
+- Vehicle
 
-| VIN | Make      | Model  | Year | Color  |
-| --- | --------- | ------ | ---: | ------ |
-|   1 | Honda     | Accord | 2003 | Silver |
-|   3 | Honda     | Accord | 2003 | Silver |
-|   4 | Honda     | CR-V   | 2014 | Blue   |
-|   5 | Chevrolet | Volt   | 2015 | Red    |
+| VIN | ModelID | Color |
+|:---:|:-------:|:------|
+|    1|        1| Blue  |
+|    2|        2| Red   |
+|    3|        3| White |
 
 - Owner
 
-| OwnerID | Name   | PhoneNumber  | VIN |
-| ------  | ------ | ------------ | --- |
-|       1 | Alice  | 123-456-7890 |   1 |
-|       2 | Bob    | 987-654-3210 |   2 |
-|       3 | Claire | 555-123-4567 |   3 |
-|       4 | Dave   | 111-222-3333 |   2 |
+| OwnerID | Name   | PhoneNumber  |
+|:-------:|:-------|:-------------|
+|       1 | Alice  | 123-456-7890 |
+|       2 | Bob    | 987-654-3210 |
+|       3 | Claire | 555-123-4567 |
+|       4 | Dave   | 111-222-3333 |
 
 - Owner_Car
 
-| OwnerCarID | OwnerID | VIN | InsuranceCompany | InsurancePolicy |
-| ---------  | ------  | --- | ---------------- | --------------- |
-|          1 |       1 |   1 | ABC Insurance    | Fire & Theft    |
-|          2 |       2 |   2 | XYZ Insurance    | Full Cover      |
-|          3 |       3 |   3 | DEF Insurance    | Collision       |
-|          4 |       4 |   2 | GHI Insurance    | Basic Legal     |
+| OwnerCarID | OwnerID | VIN | InsuranceCompanyID | InsurancePolicy |
+|:----------:|:-------:|:---:|:------------------:|:----------------|
+|          1 |       1 |   1 |                 1  | Fire & Theft    |
+|          2 |       2 |   2 |                 2  | Full Cover      |
+|          3 |       3 |   3 |                 3  | Collision       |
+|          4 |       4 |   1 |                 4  | Basic Legal     |
 
 
 ## Que cambio? 
-Ahora se separa la informacion, Car contiene la informacion propia de cada vehiculo, Owner contiene la informacion de cada propietario y Owner_Car representa una relacion entre propietario y vehiculos, junto con la informacion del seguro correspondiente. 
+Ahora se separa la informacion, Vehicle contiene la informacion propia de cada vehiculo, Owner contiene la informacion de cada propietario y Owner_Car representa una relacion entre propietario y vehiculos, junto con la informacion del seguro correspondiente. 
 
 ## 4. Aplicacion de 3FN
 Después de aplicar 2FN, se verifica que no existan dependencias transitivas. Cada atributo no clave depende directamente de la PK de su tabla, por lo que las relaciones cumplen con 3FN.
