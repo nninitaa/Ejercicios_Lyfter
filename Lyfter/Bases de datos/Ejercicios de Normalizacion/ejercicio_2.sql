@@ -1,6 +1,6 @@
 CREATE TABLE InsuranceCompany (
     CompanyID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name VARCHAR(50),
+    Name VARCHAR(50)
 );
 
 CREATE TABLE VehicleModel (

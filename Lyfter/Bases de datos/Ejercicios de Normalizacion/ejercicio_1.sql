@@ -8,7 +8,7 @@ CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
     CustomerID INT,
     Address VARCHAR(100),
-    Deliverytime DATETIME,
+    Deliverytime TIME,
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 );
 
