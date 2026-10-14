@@ -3,30 +3,13 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/tasks', methods=['GET', 'POST'])
-def handle_tasks():
+def load_tasks():
     with open('tasks.json', 'r') as f:
-        tasks = json.load(f)
+        return json.load(f)
 
-    if request.method == 'POST':
-        new_task = request.get_json()
-
-        if not new_task or not new_task.get('title') or not new_task.get('description') or not new_task.get('id'):
-            return {'error': 'Missing required fields'}, 400
-
-        valid_statuses = ['To Do', 'In Progress', 'Completed']
-        if new_task.get('status') not in valid_statuses:
-            return {'error': 'Invalid status'}, 400
-
-        for task in tasks:
-            if task['id'] == new_task['id']:
-                return {'error': 'Duplicate task ID'}, 400
-
-        tasks.append(new_task)
-        with open('tasks.json', 'w') as f:
-            json.dump(tasks, f, indent=4)
-
-        return {'message': 'Task created successfully', 'task': new_task}, 201
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    tasks = load_tasks()
 
     status = request.args.get('status')
     if status is not None:
@@ -34,6 +17,67 @@ def handle_tasks():
         return filtered_tasks
 
     return tasks
+
+@app.route('/tasks', methods=['POST'])
+def create_task():
+    new_task = request.get_json()
+    tasks = load_tasks()
+    valid_statuses = ['To Do', 'In Progress', 'Completed']
+
+    if not new_task or not new_task.get('title') or not new_task.get('description') or not new_task.get('id'):
+        return {'error': 'Missing required fields'}, 400    
+
+    valid_status = new_task.get('status')
+    if valid_status not in valid_statuses:
+        return {'error': 'Invalid status'}, 400
+    for task in tasks:
+        if task['id'] == new_task['id']:
+            return {'error': 'Duplicate task ID'}, 400
+
+    tasks.append(new_task)
+    with open('tasks.json', 'w') as f:
+        json.dump(tasks, f, indent=4)
+
+        return {'message': 'Task created successfully', 'task': new_task}, 201
+    
+
+@app.route('/tasks/<int:task_id>', methods=['PUT'])
+def update_task(task_id):
+    updated_task = request.get_json()
+    tasks = load_tasks()
+    valid_statuses = ['To Do', 'In Progress', 'Completed']
+
+    if not updated_task or not updated_task.get('title') or not updated_task.get('description') or not updated_task.get('status'):
+        return {'error': 'Missing required fields'}, 400
+
+    valid_status = updated_task.get('status')
+    if valid_status not in valid_statuses:
+        return {'error': 'Invalid status'}, 400
+
+    if 'id' in updated_task and updated_task['id'] != task_id:
+        return {'error': 'Task ID cannot be changed'}, 400
+
+    for task in tasks:
+        if task['id'] == task_id:
+            task.update(updated_task)
+            with open('tasks.json', 'w') as f:
+                json.dump(tasks, f, indent=4)
+            return {'message': 'Task updated successfully', 'task': task}, 200
+
+    return {'error': 'Task not found'}, 404
+
+    
+@app.route('/tasks/<int:task_id>', methods=['DELETE'])
+def delete_task(task_id):
+    tasks = load_tasks()
+    for task in tasks:
+        if task['id'] == task_id:
+            tasks.remove(task)
+            with open('tasks.json', 'w') as f:
+                json.dump(tasks, f, indent=4)
+            return {'message': 'Task deleted successfully'}, 200
+
+    return {'error': 'Task not found'}, 404
 
 if __name__ == '__main__':
     app.run(debug=True)
