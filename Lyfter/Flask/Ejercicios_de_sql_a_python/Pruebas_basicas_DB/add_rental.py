@@ -1,30 +1,37 @@
 import psycopg2
 
+connection = None
+cursor = None
 
-connection = psycopg2.connect(
-    host="localhost",
-    port=5432,
-    user="postgres",
-    password="irina2008araya",
-    dbname="postgres",
-)
-print("Connected to the database")
+try:
+    connection = psycopg2.connect(
+        host="localhost",
+        port=5432,
+        user="postgres",
+        password="irina2008araya",
+        dbname="postgres",
+    )
+    cursor = connection.cursor()
+    print("Connected to the database")
 
-cursor = connection.cursor()
+    consult = """
+        INSERT INTO lyfter_car_rental.rentals(id_users, id_cars)
+        VALUES (%s, %s)
+    """
+    values = (2, 4)
 
-consult = """
-    UPDATE lyfter_car_rental.rentals
-    SET rent_state = %s
-    WHERE id = %s
-"""
+    cursor.execute(consult, values)
+    connection.commit()
 
-values = ('finished', 1)
+    print("Added rent")
 
-cursor.execute(consult, values)
+except Exception as error:
+    if connection:
+        connection.rollback()
+    print(f"Error: {error}")
 
-connection.commit()
-
-print("Finished the rent")
-
-cursor.close()
-connection.close()
+finally:
+    if cursor:
+        cursor.close()
+    if connection:
+        connection.close()
